@@ -20,14 +20,37 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+//  存放so文件到jniLibs文件夹，so文件才可以打包至apk
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
+    //    如果你的jar包/依赖代码 在编译的时候需要依赖，在运行的时候也需要，那么就用compile
+    //    如果你的jar包/依赖代码 仅在编译的时候需要，但是在运行时不需要依赖,就用provided
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation files('libs\\TingPhoneOpenSDK_7.3.1.jar')
+    implementation files('libs\\XmDownload_2.0.jar')
+    implementation files('libs\\XmlyOAuth2SDK_V2.0.jar')
+    implementation files('libs\\xutil3.3.6.jar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+
+    // SDK在解析请求返回的JSON数据时用到
+    api 'com.google.code.gson:gson:2.8.1'
+    // SDK联网框架使用okhttp
+    api 'com.squareup.okhttp3:okhttp:3.11.0'
+    // SDK联网框架使用okhttp
+    api 'com.squareup.okio:okio:1.15.0'
+    // v4包
+    //noinspection GradleCompatible
+    api 'com.android.support:support-v4:28.0.0'
 }
