@@ -2,6 +2,7 @@ package com.example.myximalaya.base;
 
 import android.app.Application;
 
+import com.example.myximalaya.utils.LogUtil;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 
@@ -9,7 +10,6 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
 //        在Application中初始化CommonRequest ,请按照如下代码进行设置
 
         CommonRequest mXimalaya = CommonRequest.getInstanse();
@@ -24,5 +24,8 @@ public class BaseApplication extends Application {
             mXimalaya.setPackid("com.ximalaya.qunfeng");
             mXimalaya.init(this ,mAppSecret);
         }
+
+//        初始化LogUtil
+        LogUtil.init(this.getPackageName(), false);
     }
 }

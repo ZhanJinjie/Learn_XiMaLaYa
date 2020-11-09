@@ -32,6 +32,7 @@ android {
 dependencies {
     //    如果你的jar包/依赖代码 在编译的时候需要依赖，在运行的时候也需要，那么就用compile
     //    如果你的jar包/依赖代码 仅在编译的时候需要，但是在运行时不需要依赖,就用provided
+    //    ，compile依赖关系已被弃用，被implementation和api替代，同样，provided也被compile only替代。
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
@@ -42,7 +43,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    // 指示器
+    implementation 'com.github.hackware1993:MagicIndicator:1.7.0' // for androidx
 
     // SDK在解析请求返回的JSON数据时用到
     api 'com.google.code.gson:gson:2.8.1'
