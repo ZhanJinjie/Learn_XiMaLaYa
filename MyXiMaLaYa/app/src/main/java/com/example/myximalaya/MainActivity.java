@@ -58,19 +58,17 @@ public class MainActivity extends AppCompatActivity {
         mMainIndicator.setBackgroundColor(this.getResources().getColor(R.color.main_color));
         // 创建indicator的适配器
         mIndicatorAdaptor = new IndicatorAdaptor(this);
-        CommonNavigator commonNavigator = new CommonNavigator(this); // 通用指示器
+        // 创建通用指示器
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdjustMode(true); // 自动调整样式平均分布
         commonNavigator.setAdapter(mIndicatorAdaptor); // 设置适配器
-
         // ViewPager
         mContentViewPager = this.findViewById(R.id.content_pager);
-
         // 创建内容适配器
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         MainContentAdapter mainContentAdapter = new MainContentAdapter(supportFragmentManager);
-
         // 内容适配器绑定到ViewPager组件上
         mContentViewPager.setAdapter(mainContentAdapter);
-
         // 把 indicator 和 viewpager 绑定到一起 （ 把viewpager 交给 indicator）
         mMainIndicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(mMainIndicator, mContentViewPager);
