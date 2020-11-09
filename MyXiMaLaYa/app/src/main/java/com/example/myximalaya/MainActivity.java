@@ -6,7 +6,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.myximalaya.adapters.IndicatorAdaptor;
 import com.example.myximalaya.adapters.MainContentAdapter;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String Tag = "MainActivity";
     private MagicIndicator mMainIndicator;
     private ViewPager mContentViewPager;
+    private IndicatorAdaptor mIndicatorAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +36,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+        initEvent();
+    }
+
+    private void initEvent() {
+        // 监听 indicator 的点击事件
+        mIndicatorAdaptor.setOnIndicatorTabClickListener(new IndicatorAdaptor.OnIndicatorTabClickListener() {
+            @Override
+            public void onTabClick(int index) {
+                if (mContentViewPager != null) {
+                    LogUtil.d(Tag, "indicator click--->" + index);
+                    // 设置 viewpager 的位置
+                    mContentViewPager.setCurrentItem(index);
+                }
+            }
+        });
     }
 
     private void initView() {
         mMainIndicator = this.findViewById(R.id.main_indicator);
         mMainIndicator.setBackgroundColor(this.getResources().getColor(R.color.main_color));
         // 创建indicator的适配器
-        IndicatorAdaptor indicatorAdaptor = new IndicatorAdaptor(this);
+        mIndicatorAdaptor = new IndicatorAdaptor(this);
         CommonNavigator commonNavigator = new CommonNavigator(this); // 通用指示器
-        commonNavigator.setAdapter(indicatorAdaptor); // 设置适配器
+        commonNavigator.setAdapter(mIndicatorAdaptor); // 设置适配器
 
         // ViewPager
         mContentViewPager = this.findViewById(R.id.content_pager);

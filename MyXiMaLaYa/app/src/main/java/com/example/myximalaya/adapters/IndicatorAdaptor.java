@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
-import com.example.myximalaya.MainActivity;
 import com.example.myximalaya.R;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -12,11 +11,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 public class IndicatorAdaptor extends CommonNavigatorAdapter {
 
     private final String[] mTitles;
+    private OnIndicatorTabClickListener mOnTabClickListener;
 
     public IndicatorAdaptor(Context context) {
         mTitles = context.getResources().getStringArray(R.array.indicator_title);
@@ -48,11 +47,10 @@ public class IndicatorAdaptor extends CommonNavigatorAdapter {
         colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO:
-                //切换viewPager的内容，如果index不一样的话。
-//                if (mOnTabClickListener != null) {
-//                    mOnTabClickListener.onTabClick(index);
-//                }
+            // 切换viewPager的内容，如果index不一样的话。
+            if (mOnTabClickListener != null) {
+                mOnTabClickListener.onTabClick(index);
+            }
             }
         });
         //把这个创建好的view返回回去
@@ -65,5 +63,14 @@ public class IndicatorAdaptor extends CommonNavigatorAdapter {
         indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
         indicator.setColors(Color.parseColor("#ffffff"));
         return indicator;
+    }
+
+    // 暴露一个接口，让indicator 可以 改变viewpager
+    public interface OnIndicatorTabClickListener {
+        void onTabClick(int index);
+    }
+    // 设置 indicator 点击监听器
+    public void setOnIndicatorTabClickListener(OnIndicatorTabClickListener listener) {
+        this.mOnTabClickListener = listener;
     }
 }
