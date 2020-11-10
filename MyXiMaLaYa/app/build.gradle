@@ -40,6 +40,8 @@ dependencies {
     implementation files('libs\\XmDownload_2.0.jar')
     implementation files('libs\\XmlyOAuth2SDK_V2.0.jar')
     implementation files('libs\\xutil3.3.6.jar')
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha06'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

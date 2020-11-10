@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // 测试是否可以拿到数据
+    // 测试集成的SDK，是否可以拿到数据
     private void testSuccess() {
         Map<String, String> map = new HashMap<String, String>();
         CommonRequest.getCategories(map, new IDataCallBack<CategoryList>() {
