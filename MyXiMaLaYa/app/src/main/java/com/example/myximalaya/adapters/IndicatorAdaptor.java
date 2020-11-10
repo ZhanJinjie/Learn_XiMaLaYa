@@ -18,6 +18,7 @@ public class IndicatorAdaptor extends CommonNavigatorAdapter {
     private OnIndicatorTabClickListener mOnTabClickListener;
 
     public IndicatorAdaptor(Context context) {
+        // 获取指示器的标题数组数据
         mTitles = context.getResources().getStringArray(R.array.indicator_title);
     }
 

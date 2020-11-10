@@ -44,16 +44,17 @@ public class MainActivity extends AppCompatActivity {
         mIndicatorAdaptor.setOnIndicatorTabClickListener(new IndicatorAdaptor.OnIndicatorTabClickListener() {
             @Override
             public void onTabClick(int index) {
-                if (mContentViewPager != null) {
-                    LogUtil.d(Tag, "indicator click--->" + index);
-                    // 设置 viewpager 的位置
-                    mContentViewPager.setCurrentItem(index);
-                }
+            if (mContentViewPager != null) {
+                LogUtil.d(Tag, "indicator click--->" + index);
+                // 设置 viewpager 的位置
+                mContentViewPager.setCurrentItem(index);
+            }
             }
         });
     }
 
     private void initView() {
+        // 获取指示器 indicator
         mMainIndicator = this.findViewById(R.id.main_indicator);
         mMainIndicator.setBackgroundColor(this.getResources().getColor(R.color.main_color));
         // 创建indicator的适配器
@@ -61,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
         // 创建通用指示器
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true); // 自动调整样式平均分布
-        commonNavigator.setAdapter(mIndicatorAdaptor); // 设置适配器
-        // ViewPager
+        commonNavigator.setAdapter(mIndicatorAdaptor); // 为indicator设置适配器
+
+        // 获取 ViewPager
         mContentViewPager = this.findViewById(R.id.content_pager);
         // 创建内容适配器
         FragmentManager supportFragmentManager = getSupportFragmentManager();
