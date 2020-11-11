@@ -46,6 +46,7 @@ public class RecommendPresenter implements IRecommendPresenter {
      */
     @Override
     public void getRecommendList() {
+        updateLoading(); // view 状态设置为loading
         // 封装参数
         Map<String, String> map = new HashMap<String, String>();
         // 这个参数是指一页数据返回多少条
@@ -69,27 +70,41 @@ public class RecommendPresenter implements IRecommendPresenter {
                 // 数据获取出错
                 LogUtil.d(Tag, "error --> " + i);
                 LogUtil.d(Tag, "errorMsg --> " + s);
+                handlerError();
             }
         });
+    }
+
+    private void updateLoading() {
+        // 通知UI更新
+        for (IRecommendViewCallback callback : mCallbacks) {
+            callback.onLoading();
+        }
+    }
+
+    private void handlerError() {
+        // 通知UI更新
+        if (mCallbacks != null) {
+            for (IRecommendViewCallback callback : mCallbacks) {
+                callback.onNetworkError();
+            }
+        }
     }
 
     private void handlerRecommendResult(List<Album> albumList) {
         // 通知UI更新
         if (mCallbacks != null) {
-            for (IRecommendViewCallback callback : mCallbacks) {
-                callback.onRecommendListLoaded(albumList);
+            if (albumList.size() == 0) {
+                for (IRecommendViewCallback callback : mCallbacks) {
+                    callback.onEmpty();
+                }
+            }else{
+                for (IRecommendViewCallback callback : mCallbacks) {
+                    callback.onRecommendListLoaded(albumList);
+                }
             }
+
         }
-    }
-
-    @Override
-    public void pull2RefreshMore() {
-
-    }
-
-    @Override
-    public void loadMore() {
-
     }
 
     @Override
